@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8" />
+  <title>Online Multi-Language Movie Streaming</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #fff;
+    }
+  
+    header {
+      background-color: #1e293b;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  
+    #search-bar {
+      width: 80%;
+      max-width: 600px;
+      padding: 0.9rem 1rem;
+      margin: 2rem auto;
+      display: block;
+      border: none;
+      border-radius: 15px;
+      font-size: 1rem;
+      background-color: #f3f4f6;
+      color: #1e293b;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    }
+  
+    .language-section {
+      margin: 2.5rem auto;
+      max-width: 1200px;
+      padding: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+  
+    .language-title {
+      font-size: 2rem;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      width: 100%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+  
+    .thumbnail-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+  
+    .thumbnail {
+      background-color: #fefefe;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      width: 280px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #1e293b;
+    }
+  
+    .thumbnail:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
+    }
+  
+    .thumbnail img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+  
+    .thumbnail h2 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+    }
+  
+    .thumbnail video {
+      width: 100%;
+      margin-top: 0.5rem;
+      border-radius: 10px;
+    }
+  
+    .hidden {
+      display: none;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <header>
+    <h1>Online Multi-Language Movie Streaming</h1>
+  </header>
+
+  <input type="text" id="search-bar" placeholder="Search for movies..." onkeyup="filterMovies()">
+
+  <div id="movie-sections"></div>
+
+  <script>
+    const movieData = {
+      English: [
+        {
+          title: "English Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=English+1",
+          video: "movies/english/movie1/videos/movie1.mp4"
+        }
+      ],
+      Hindi: [
+        {
+          title: "Hindi Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=Hindi+1",
+          video: "movies/hindi/movie1/videos/movie1.mp4"
+        }
+      ],
+      Tamil: [
+        {
+          title: "Tamil Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=Tamil+1",
+          video: "movies/tamil/movie1/videos/movie1.mp4"
+        }
+      ],
+      Malayalam: [
+        {
+          title: "Malayalam Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=Malayalam+1",
+          video: "movies/malayalam/movie1/videos/movie1.mp4"
+        }
+      ],
+      Telugu: [
+        {
+          title: "Telugu Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=Telugu+1",
+          video: "movies/telugu/movie1/videos/movie1.mp4"
+        }
+      ],
+      Kannada: [
+        {
+          title: "Kannada Movie 1",
+          thumbnail: "https://via.placeholder.com/300x160?text=Kannada+1",
+          video: "movies/kannada/movie1/videos/movie1.mp4"
+        }
+      ]
+    };
+
+    function createMovieSections() {
+      const container = document.getElementById("movie-sections");
+
+      for (let language in movieData) {
+        const section = document.createElement("div");
+        section.classList.add("language-section");
+
+        const title = document.createElement("div");
+        title.classList.add("language-title");
+        title.textContent = `${language} Movies`;
+
+        const thumbnailContainer = document.createElement("div");
+        thumbnailContainer.classList.add("thumbnail-container");
+
+        movieData[language].forEach(movie => {
+          const card = document.createElement("div");
+          card.classList.add("thumbnail");
+          card.setAttribute("data-title", movie.title.toLowerCase());
+
+          const h2 = document.createElement("h2");
+          h2.textContent = movie.title;
+
+          const img = document.createElement("img");
+          img.src = movie.thumbnail;
+          img.alt = `${movie.title} Thumbnail`;
+          img.onclick = () => toggleMovie(img, movie.video);
+
+          const video = document.createElement("video");
+          video.controls = true;
+          video.classList.add("hidden");
+
+          const source = document.createElement("source");
+          source.src = movie.video;
+          source.type = "video/mp4";
+
+          video.appendChild(source);
+          card.appendChild(h2);
+          card.appendChild(img);
+          card.appendChild(video);
+          thumbnailContainer.appendChild(card);
+        });
+
+        section.appendChild(title);
+        section.appendChild(thumbnailContainer);
+        container.appendChild(section);
+      }
+    }
+
+    function toggleMovie(imgElement, moviePath) {
+      const videoElement = imgElement.nextElementSibling;
+      const videoSource = videoElement.querySelector('source');
+
+      if (videoElement.classList.contains('hidden')) {
+        videoSource.src = moviePath;
+        videoElement.load();
+        videoElement.classList.remove('hidden');
+      } else {
+        videoElement.pause();
+        videoElement.classList.add('hidden');
+      }
+    }
+
+    function filterMovies() {
+      const searchValue = document.getElementById("search-bar").value.toLowerCase();
+      const allCards = document.querySelectorAll(".thumbnail");
+
+      allCards.forEach(card => {
+        const title = card.getAttribute("data-title");
+        if (title.includes(searchValue)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Init
+    createMovieSections();
+  </script>
+<footer style="background-color: #1e293b; color: #f1f5f9; padding: 2rem 1rem; margin-top: 4rem; font-family: 'Poppins', sans-serif;">
+    <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;">
+  
+      <!-- About Us -->
+      <div style="flex: 1; min-width: 220px;">
+        <h3 style="margin-bottom: 1rem; color: #fff;">About Us</h3>
+        <p style="line-height: 1.6;">
+          Welcome to our multi-language movie streaming platform. Our mission is to bring entertainment to everyone by offering a wide selection of movies in different languages – all in one place, for free.
+        </p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div style="flex: 1; min-width: 200px;">
+        <h3 style="margin-bottom: 1rem; color: #fff;">Quick Links</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li><a href="#" style="color: #93c5fd; text-decoration: none;">Home</a></li>
+          <li><a href="#" style="color: #93c5fd; text-decoration: none;">Browse Movies</a></li>
+          <li><a href="#" style="color: #93c5fd; text-decoration: none;">FAQ</a></li>
+          <li><a href="#" style="color: #93c5fd; text-decoration: none;">Terms of Service</a></li>
+        </ul>
+      </div>
+  
+      <!-- Contact Info -->
+      <div style="flex: 1; min-width: 220px;">
+        <h3 style="margin-bottom: 1rem; color: #fff;">Contact Us</h3>
+        <p>Email: support@streammovies.com</p>
+        <p>Phone: +1 (234) 567-890</p>
+        <p>Location: Online Worldwide</p>
+      </div>
+  
+      <!-- Social Media -->
+      <div>
+        <h4 class="text-xl font-semibold mb-4 text-teal-400">Follow Us</h4>
+        <div class="flex space-x-4 text-teal-500">
+          <!-- Instagram -->
+          <a href="#" class="hover:text-white transition" title="Instagram" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+              <path d="M16 11.37a4 4 0 1 1-2.91-2.91A4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+            </svg>
+          </a>
+          <!-- X (Twitter) -->
+          <a href="#" class="hover:text-white transition" title="X" aria-label="X">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4l16 16M20 4L4 20"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" class="hover:text-white transition" title="Facebook" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v9h4v-9h3.6L19 9h-4V6a1 1 0 0 1 1-1h2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; border-top: 1px solid #334155; padding-top: 1rem;">
+      &copy; 2025 MovieStream. All rights reserved.
+    </div>
+  </footer>
+  
