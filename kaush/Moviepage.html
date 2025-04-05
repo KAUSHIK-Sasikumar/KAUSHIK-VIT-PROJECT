@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineFlix - Your Gateway to Blockbusters</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -15,30 +18,29 @@
     }
 
     header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 1rem;
-      text-align: center;
+      background: #000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 2.5rem;
       color: #e50914;
-    }
-
-    nav {
-      margin-top: 1rem;
+      margin: 0;
+      font-size: 2rem;
     }
 
     nav a {
-      color: white;
-      margin: 0 1rem;
+      color: #fff;
+      margin-left: 1.5rem;
       text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s;
+      font-weight: 400;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
@@ -47,19 +49,30 @@
 
     .hero {
       position: relative;
-      height: 60vh;
+      height: 70vh;
       background: url('featured-movie.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
     }
 
     .hero h2 {
+      position: relative;
+      z-index: 2;
       font-size: 3rem;
-      color: #e50914;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+      text-align: center;
+      max-width: 700px;
       padding: 0 1rem;
+      color: #fff;
+      text-shadow: 0 0 10px #000;
     }
 
     section {
@@ -68,99 +81,274 @@
       margin: auto;
     }
 
-    h2, h3 {
-      text-align: center;
-      color: #e50914;
+    h2 {
+      color: #fff;
+      margin-bottom: 1rem;
     }
 
-    .movies {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+    .genre {
+      margin-bottom: 2.5rem;
+    }
+
+    .genre h3 {
+      color: #e50914;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
     .movie {
-      background: #222;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      transition: transform 0.3s;
-      box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+
+.movie:hover {
+  transform: scale(1.03);
+}
+
+.movie video {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  border: none;
+}
+
+.movie h3 {
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+}
+
+
+    /* Scrollbar styling */
+    .movies::-webkit-scrollbar {
+      height: 8px;
     }
 
-    .movie:hover {
-      transform: scale(1.08);
+    .movies::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
     }
 
-    .movie video {
-      width: 100%;
-      border-radius: 8px;
+    .movies::-webkit-scrollbar-track {
+      background: transparent;
     }
 
-    .movie h3 {
-      margin-top: 0.5rem;
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        margin-left: 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-
-<header>
-  <h1>CineFlix</h1>
-</header>
-
-<section class="hero">
-  <h2>"Step into CineFlix – Where Stories Come Alive and Adventure Begins!"</h2>
-</section>
-
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>CineFlix – Stream Your Favorites</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-950 text-white font-sans">
+    
+      <!-- Navbar -->
+      <header class="bg-gray-900 bg-opacity-80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 class="text-2xl font-bold text-red-500">CineFlix</h1>
+          <nav class="space-x-6 hidden md:flex">
+            <a href="#" class="hover:text-red-400">Home</a>
+            <a href="#" class="hover:text-red-400">Genres</a>
+            <a href="#" class="hover:text-red-400">Trending</a>
+            <a href="payment.html" class="hover:text-red-400">My Plan</a>
+          </nav>
+          <button class="md:hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <!-- Hero Section -->
+      <section class="relative h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1607202371266-df82c5e0b1c1');">
+        <div class="bg-black bg-opacity-60 p-8 rounded-xl text-center max-w-2xl">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">
+            Step into CineFlix – Where Stories Come Alive and Adventure Begins!
+          </h2>
+          <a href="payment.html">
+            <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-lg font-medium">
+              Get Started
+            </button>
+          </a>
+          
+        </div>
+      </section>
+      <!-- Genre Section -->
+      <section class="max-w-7xl mx-auto px-4 py-10" id="genres">
+        <h3 class="text-2xl font-semibold mb-4 text-center md:text-left">Browse by Genre</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+      
+          <a href="#action" class="bg-gray-800 py-3 px-2 rounded-md hover:bg-red-500 transition block text-sm">
+            Action
+          </a>
+      
+          <a href="#thriller" class="bg-gray-800 py-3 px-2 rounded-md hover:bg-red-500 transition block text-sm">
+            Thriller
+          </a>
+      
+          <a href="#comedy" class="bg-gray-800 py-3 px-2 rounded-md hover:bg-red-500 transition block text-sm">
+            Comedy
+          </a>
+      
+          <a href="#scifi" class="bg-gray-800 py-3 px-2 rounded-md hover:bg-red-500 transition block text-sm">
+            Sci-Fi
+          </a>
+      
+          <a href="#romance" class="bg-gray-800 py-3 px-2 rounded-md hover:bg-red-500 transition block text-sm">
+            Romance
+          </a>
+      
+        </div>
+      </section>
+      
+      
+    
+    </body>
+    </html>
 <section id="movies">
   <h2>Explore English Movies by Genre</h2>
 
-  <h3>Action</h3>
-  <div class="movies">
-    <div class="movie"><video controls poster="explosion.jpg" src="expo.mp4"></video><h3>Explosion X</h3></div>
-    <div class="movie"><video controls poster="bulletproof.jpg" src="bulletproof.mp4"></video><h3>Bulletproof</h3></div>
-    <div class="movie"><video controls poster="maxforce.jpg" src="maxforce.mp4"></video><h3>Maximum Force</h3></div>
-    <div class="movie"><video controls poster="rgo.jpg" src="rgo.mp4"></video><h3>Rogue Ops</h3></div>
-    <div class="movie"><video controls poster="sv.jpg" src="sv.mp4"></video><h3>Steel Vengeance</h3></div>
+  <div class="genre" id="action">
+    <h3>Action</h3>
+    <div class="movies">
+      <div class="movie"><video controls poster="explosion.jpg" src="expo.mp4"></video><h3>Explosion X</h3></div>
+      <div class="movie"><video controls poster="bulletproof.jpg" src="bulletproof.mp4"></video><h3>Bulletproof</h3></div>
+      <div class="movie"><video controls poster="maxforce.jpg" src="maxforce.mp4"></video><h3>Maximum Force</h3></div>
+      <div class="movie"><video controls poster="rgo.jpg" src="rgo.mp4"></video><h3>Rogue Ops</h3></div>
+      <div class="movie"><video controls poster="sv.jpg" src="sv.mp4"></video><h3>Steel Vengeance</h3></div>
+    </div>
   </div>
 
-  <h3>Comedy</h3>
-  <div class="movies">
-    <div class="movie"><video controls poster="lr.jpg" src="lr.mp4"></video><h3>Laugh Riot</h3></div>
-    <div class="movie"><video controls poster="fp.jpg" src="fp.mp4"></video><h3>Fools' Paradise</h3></div>
-    <div class="movie"><video controls poster="cr.jpg" src="cr.mp4"></video><h3>Comic Relief</h3></div>
-    <div class="movie"><video controls poster="jokers.jpg" src="jokers.mp4"></video><h3>The Jokers</h3></div>
-    <div class="movie"><video controls poster="ww.jpg" src="ww.mp4"></video><h3>Wacky World</h3></div>
+  <div class="genre" id="comedy">
+    <h3>Comedy</h3>
+    <div class="movies">
+      <div class="movie"><video controls poster="lr.jpg" src="lr.mp4"></video><h3>Laugh Riot</h3></div>
+      <div class="movie"><video controls poster="fp.jpg" src="fp.mp4"></video><h3>Fools' Paradise</h3></div>
+      <div class="movie"><video controls poster="cr.jpg" src="cr.mp4"></video><h3>Comic Relief</h3></div>
+      <div class="movie"><video controls poster="jokers.jpg" src="jokers.mp4"></video><h3>The Jokers</h3></div>
+      <div class="movie"><video controls poster="ww.jpg" src="ww.mp4"></video><h3>Wacky World</h3></div>
+    </div>
   </div>
 
-  <h3>Thriller</h3>
-  <div class="movies">
-    <div class="movie"><video controls poster="ef.jpg" src="ef.mp4"></video><h3>Edge of Fear</h3></div>
-    <div class="movie"><video controls poster="dp.jpg" src="dp.mp4></video><h3>Dark Pursuit</h3></div>
-    <div class="movie"><video controls poster="ht.jpg" src="ht.mp4"></video><h3>The Hidden Truth</h3></div>
-    <div class="movie"><video controls poster="nwo.jpg" src="nwo.mp4"></video><h3>No Way Out</h3></div>
-    <div class="movie"><video controls poster="p.jpg" src="p.mp4"></video><h3>Paranoia</h3></div>
+  <div class="genre" id="thriller">
+    <h3>Thriller</h3>
+    <div class="movies">
+      <div class="movie"><video controls poster="ef.jpg" src="ef.mp4"></video><h3>Edge of Fear</h3></div>
+      <div class="movie"><video controls poster="dp.jpg" src="dp.mp4"></video><h3>Dark Pursuit</h3></div>
+      <div class="movie"><video controls poster="ht.jpg" src="ht.mp4"></video><h3>The Hidden Truth</h3></div>
+      <div class="movie"><video controls poster="nwo.jpg" src="nwo.mp4"></video><h3>No Way Out</h3></div>
+      <div class="movie"><video controls poster="p.jpg" src="p.mp4"></video><h3>Paranoia</h3></div>
+    </div>
   </div>
 
-  <h3>Romance</h3>
-  <div class="movies">
-    <div class="movie"><video controls poster="romance1.jpg" src="romance1.mp4"></video><h3>Forever Yours</h3></div>
-    <div class="movie"><video controls poster="romance2.jpg" src="romance2.mp4"></video><h3>Love in Bloom</h3></div>
-    <div class="movie"><video controls poster="romance3.jpg" src="romance3.mp4"></video><h3>The Heart Note</h3></div>
-    <div class="movie"><video controls poster="romance4.jpg" src="romance4.mp4"></video><h3>Endless Summer</h3></div>
-    <div class="movie"><video controls poster="romance5.jpg" src="romance5.mp4"></video><h3>Whispers of Love</h3></div>
+  <div class="genre" id="romance">
+    <h3>Romance</h3>
+    <div class="movies">
+      <div class="movie"><video controls poster="romance1.jpg" src="romance1.mp4"></video><h3>Forever Yours</h3></div>
+      <div class="movie"><video controls poster="romance2.jpg" src="romance2.mp4"></video><h3>Love in Bloom</h3></div>
+      <div class="movie"><video controls poster="romance3.jpg" src="romance3.mp4"></video><h3>The Heart Note</h3></div>
+      <div class="movie"><video controls poster="romance4.jpg" src="romance4.mp4"></video><h3>Endless Summer</h3></div>
+      <div class="movie"><video controls poster="romance5.jpg" src="romance5.mp4"></video><h3>Whispers of Love</h3></div>
+    </div>
   </div>
 
-  <h3>Sci-Fi</h3>
-  <div class="movies">
-    <div class="movie"><video controls poster="scifi1.jpg" src="scifi1.mp4"></video><h3>Galaxy Drift</h3></div>
-    <div class="movie"><video controls poster="scifi2.jpg" src="scifi2.mp4"></video><h3>Time Hackers</h3></div>
-    <div class="movie"><video controls poster="scifi3.jpg" src="scifi3.mp4"></video><h3>Neo Earth</h3></div>
-    <div class="movie"><video controls poster="scifi4.jpg" src="scifi4.mp4"></video><h3>Cosmic Pulse</h3></div>
-    <div class="movie"><video controls poster="scifi5.jpg" src="scifi5.mp4"></video><h3>Quantum Break</h3></div>
+  <div class="genre" id="scifi">
+    <h3>Sci-Fi</h3>
+    <div class="movies">
+      <div class="movie"><video controls poster="scifi1.jpg" src="scifi1.mp4"></video><h3>Galaxy Drift</h3></div>
+      <div class="movie"><video controls poster="scifi2.jpg" src="scifi2.mp4"></video><h3>Time Hackers</h3></div>
+      <div class="movie"><video controls poster="scifi3.jpg" src="scifi3.mp4"></video><h3>Neo Earth</h3></div>
+      <div class="movie"><video controls poster="scifi4.jpg" src="scifi4.mp4"></video><h3>Cosmic Pulse</h3></div>
+      <div class="movie"><video controls poster="scifi5.jpg" src="scifi5.mp4"></video><h3>Quantum Break</h3></div>
+    </div>
   </div>
 </section>
+<footer class="bg-gray-900 text-white py-12 mt-16 font-sans">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    
+    <!-- About Us -->
+    <div>
+      <h4 class="text-xl font-semibold mb-4 text-teal-400">📚 Book Haven</h4>
+      <p class="text-gray-300 text-sm leading-relaxed">
+        Book Haven is your gateway to free stories, knowledge, and imagination. Read. Learn. Explore. Anytime, anywhere.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-xl font-semibold mb-4 text-teal-400">Quick Links</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#fiction" class="hover:text-teal-300 transition">Fiction</a></li>
+        <li><a href="#non-fiction" class="hover:text-teal-300 transition">Non-Fiction</a></li>
+        <li><a href="#science-fiction" class="hover:text-teal-300 transition">Science Fiction</a></li>
+        <li><a href="login.html" class="hover:text-teal-300 transition">Login</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Us -->
+    <div>
+      <h4 class="text-xl font-semibold mb-4 text-teal-400">Contact Us</h4>
+      <ul class="text-sm space-y-2 text-gray-300">
+        <li>Email: <a href="mailto:bookhaven@email.com" class="hover:text-teal-300">bookhaven@email.com</a></li>
+        <li>Phone: <a href="tel:+1234567890" class="hover:text-teal-300">+1 234 567 890</a></li>
+        <li>Location: 📍 Virtual Library, Online</li>
+      </ul>
+    </div>
+
+    <!-- Follow Us -->
+    <div>
+      <h4 class="text-xl font-semibold mb-4 text-teal-400">Follow Us</h4>
+      <div class="flex space-x-4 text-teal-500">
+        <!-- Instagram -->
+        <a href="#" class="hover:text-white transition" title="Instagram" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+            <path d="M16 11.37a4 4 0 1 1-2.91-2.91A4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+          </svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a href="#" class="hover:text-white transition" title="X" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 4l16 16M20 4L4 20"/>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a href="#" class="hover:text-white transition" title="Facebook" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v9h4v-9h3.6L19 9h-4V6a1 1 0 0 1 1-1h2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+<!-- Footer -->
+<footer class="bg-gray-800 py-8 text-center text-sm text-gray-400">
+  <p>&copy; 2025 CineFlix. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
-
